@@ -317,3 +317,26 @@ Built using:
 
 For questions or issues, please refer to Apple's RoomPlan documentation:
 https://developer.apple.com/documentation/roomplan
+
+## Web showcase
+
+A browsable showcase of this app's source, with its export and floor-plan geometry running in the browser:
+**https://gddickinson.github.io/roomScanner/** (published by `.github/workflows/pages.yml` on push to main).
+
+- **Code explorer**: every Swift file with its header summary, outline, search and syntax highlighting.
+- **How it works**: the RoomPlan session, live 3D/2D views, saving and the export formats, each linked to its line.
+- **Floor-plan lab**: build a test room or open a JSON file exported by the app; see the floor plan and JSON the app's
+  code produces (ported to JavaScript and tested against the Swift functions via `scripts/make_swift_fixture.py`).
+
+Run it locally:
+```bash
+pip install -r requirements-web.txt
+python run_web.py            # http://127.0.0.1:8266
+python -m pytest -q tests    # Swift checks run only on macOS with Xcode
+```
+
+| Home | Code explorer |
+|------|---------------|
+| ![Home](docs/img/home.png) | ![Code explorer](docs/img/code.png) |
+| **How it works** | **Floor-plan lab** |
+| ![How it works](docs/img/how.png) | ![Floor-plan lab](docs/img/demo.png) |
