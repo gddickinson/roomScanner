@@ -39,10 +39,13 @@ A native iOS app for scanning rooms using iPhone's LiDAR sensor and exporting 3D
    - `ScanningView.swift`
    - `ScanManager.swift`
    - `Models.swift`
+   - `MappingFloorPlanView.swift`
+   - `RoomVisualization3DView.swift`
+   - `FloorPlanPreview.swift` (not used by the current screens, but compiles)
 
-3. **Update Info.plist**:
-   - Replace with the provided `Info.plist` file
-   - Key requirement: Camera usage description for LiDAR access
+3. **Update Info.plist** (no Info.plist is included in this repository):
+   - Add `NSCameraUsageDescription` (camera/LiDAR) and `NSLocationWhenInUseUsageDescription`
+     (the floor-plan view shows the compass heading)
 
 4. **Configure signing**:
    - Select your development team in "Signing & Capabilities"
@@ -99,6 +102,8 @@ pip install numpy matplotlib
    - Email/messaging
 
 ### Python Analysis
+
+`room_scan_loader.py` is not included in this repository; the example below shows the intended API.
 
 ```python
 from room_scan_loader import RoomScan, visualize_floor_plan
@@ -197,7 +202,7 @@ class MyRoomAnalyzer(RoomScan):
 
 **"RoomPlan not available"**
 - Ensure you're running on a LiDAR-equipped iPhone
-- Check iOS version (requires iOS 16+)
+- Check iOS version (requires iOS 17+)
 
 **Scan quality is poor**
 - Ensure good lighting
@@ -290,8 +295,9 @@ RoomScanner/
 ├── ScanningView.swift         # RoomPlan scanning interface
 ├── ScanManager.swift          # Data management & export
 ├── Models.swift               # Data structures
-├── Info.plist                 # App configuration
-└── room_scan_loader.py        # Python data loader
+├── MappingFloorPlanView.swift # Live 2D floor plan while scanning
+├── RoomVisualization3DView.swift # Live 3D SceneKit view while scanning
+└── FloorPlanPreview.swift     # Earlier 2D preview (unused)
 ```
 
 ## License
