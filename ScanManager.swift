@@ -128,9 +128,11 @@ class ScanManager: ObservableObject {
             let x = Float(wall.transform.columns.3.x)
             let y = Float(wall.transform.columns.3.y)
             let z = Float(wall.transform.columns.3.z)
-            let w = Float(wall.dimensions.x) / 2
-            let h = Float(wall.dimensions.y) / 2
-            let d = Float(wall.dimensions.z) / 2
+            // Extent along the world axes: a wall running along z adds its width to z, not to x
+            let half = surfaceHalfExtents(transform: wall.transform, dimensions: wall.dimensions)
+            let w = half.x
+            let h = half.y
+            let d = half.z
             
             minX = min(minX, x - w)
             maxX = max(maxX, x + w)

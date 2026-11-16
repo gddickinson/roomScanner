@@ -162,8 +162,9 @@ struct MappingFloorPlanView: View {
         // Include walls
         for wall in room.walls {
             let pos = wall.transform.columns.3
-            let halfW = wall.dimensions.x / 2
-            let halfD = wall.dimensions.z / 2
+            let half = surfaceHalfExtents(transform: wall.transform, dimensions: wall.dimensions)
+            let halfW = half.x  // extents along world x / z, so rotated walls are measured correctly
+            let halfD = half.z
             
             minX = min(minX, Float(pos.x - halfW))
             maxX = max(maxX, Float(pos.x + halfW))

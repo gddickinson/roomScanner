@@ -7,6 +7,7 @@
 
 import Foundation
 import RoomPlan
+import simd
 
 struct RoomScan: Identifiable, Codable {
     let id: UUID
@@ -41,3 +42,12 @@ let exportFormats = [
                  fileExtension: "json", 
                  description: "Raw data export for Python processing")
 ]
+
+/// Half-size of a RoomPlan box (surface or object) along the world x, y and z axes, taking its rotation into account:
+/// the box's half dimensions projected onto each axis through the rotation columns of its transform.
+func surfaceHalfExtents(transform t: simd_float4x4, dimensions d: simd_float3) -> simd_float3 {
+    let right = simd_float3(t.columns.0.x, t.columns.0.y, t.columns.0.z)
+    let up = simd_float3(t.columns.1.x, t.columns.1.y, t.columns.1.z)
+    let back = simd_float3(t.columns.2.x, t.columns.2.y, t.columns.2.z)
+    return abs(right) * (d.x / 2) + abs(up) * (d.y / 2) + abs(back) * (d.z / 2)
+}
